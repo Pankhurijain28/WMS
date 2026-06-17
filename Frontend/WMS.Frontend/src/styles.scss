@@ -174,16 +174,104 @@ textarea:focus {
   }
 }
 
-/* Update this inside styles.scss */
+/* ============================================================
+   Layout shell overrides
+   The global <app-layout> now owns the sidebar/navbar offset
+   (.shell-content), so legacy per-page offset wrappers must be
+   neutralised to avoid double margins.
+   ============================================================ */
 .page-layout {
-  display: flex;
-  min-height: 100vh;
+  display: block;
+  min-height: auto;
 }
 
 .content-area {
-  margin-top: 70px; /* Creates space for the fixed Navbar */
-  margin-left: 260px; /* Creates space for the fixed Sidebar */
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  width: 100% !important;
   padding: 30px;
-  width: calc(100% - 260px); /* Prevents horizontal scrolling */
   box-sizing: border-box;
 }
+
+/* ============================================================
+   Visual polish
+   ============================================================ */
+
+/* Smooth, themed scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+*::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+/* Cards get a subtle depth + hover lift */
+.content-card,
+.table-card,
+.stat-card,
+.form-card {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.18);
+}
+
+/* Buttons: consistent feel across pages */
+.primary-btn,
+.add-btn,
+.search-btn,
+.edit-btn,
+.delete-btn,
+.reset-btn {
+  border-radius: 10px;
+  font-weight: 600;
+  transition: filter .2s ease, transform .1s ease;
+}
+.primary-btn:hover,
+.add-btn:hover,
+.search-btn:hover,
+.edit-btn:hover,
+.delete-btn:hover,
+.reset-btn:hover { filter: brightness(1.1); }
+.primary-btn:active,
+.add-btn:active { transform: translateY(1px); }
+
+/* Headings */
+h1 { font-weight: 700; letter-spacing: -0.5px; }
+
+/* Status badges — unify the look */
+.status,
+.status-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.status.active,
+.status-badge.active {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--success);
+}
+.status.inactive,
+.status-badge:not(.active) {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+}
+
+/* Tables a touch cleaner */
+thead { background: #0b1220; }
+th {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+tbody tr { transition: background .15s ease; }

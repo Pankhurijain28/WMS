@@ -21,4 +21,25 @@ export class AuthService {
   logout() {
     localStorage.clear();
   }
+
+  getRole(): string {
+    return localStorage.getItem('role') || '';
+  }
+
+  isAdmin(): boolean {
+    return this.getRole() === 'Admin';
+  }
+
+  isManager(): boolean {
+    return this.getRole() === 'Manager';
+  }
+
+  isEmployee(): boolean {
+    return this.getRole() === 'Employee';
+  }
+
+  /** Admin or Manager — i.e. can perform management actions */
+  canManage(): boolean {
+    return this.isAdmin() || this.isManager();
+  }
 }

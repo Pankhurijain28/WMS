@@ -1,0 +1,13 @@
+.shell-content {
+  margin-left: 260px;
+  margin-top: 70px;
+  min-height: calc(100vh - 70px);
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 992px) {
+  .shell-content {
+    margin-left: 0;
+  }
+}

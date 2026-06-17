@@ -6,30 +6,27 @@ import {
 import {
   FormBuilder,
   FormGroup,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  Validators
 } from '@angular/forms';
 
-import { ActivatedRoute }
+import { ActivatedRoute, Router }
 from '@angular/router';
 
 import { CommonModule }
 from '@angular/common';
 
+import { ToastrService }
+from 'ngx-toastr';
+
 import { DepartmentService }
 from '../../../core/services/department.service';
-import { NavbarComponent }
-from '../../../shared/layouts/navbar/navbar';
-
-import { SidebarComponent }
-from '../../../shared/layouts/sidebar/sidebar';
 
 @Component({
   selector: 'app-department-form',
   standalone: true,
   imports: [
     CommonModule,
-    NavbarComponent,
-  SidebarComponent,
     ReactiveFormsModule
   ],
   templateUrl: './department-form.html',
@@ -47,7 +44,9 @@ implements OnInit {
     private service:
       DepartmentService,
     private route:
-      ActivatedRoute
+      ActivatedRoute,
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +54,7 @@ implements OnInit {
     this.departmentForm =
       this.fb.group({
 
-        departmentName: [''],
+        departmentName: ['', Validators.required],
         description: ['']
 
       });
@@ -83,29 +82,35 @@ implements OnInit {
 
   save() {
 
-  console.log('SAVE CLICKED');
+    if (this.departmentForm.invalid) {
+      this.departmentForm.markAllAsTouched();
+      this.toastr.warning('Please enter a department name.');
+      return;
+    }
 
-  console.log(this.departmentForm.value);
+    if (this.departmentId) {
 
-  this.service
-    .create(this.departmentForm.value)
-    .subscribe({
+      this.service
+        .update(this.departmentId, this.departmentForm.value)
+        .subscribe({
+          next: () => {
+            this.toastr.success('Department updated successfully');
+            this.router.navigate(['/departments']);
+          },
+          error: () => this.toastr.error('Failed to update department')
+        });
 
-      next: (res) => {
+      return;
+    }
 
-        console.log('SUCCESS');
-        console.log(res);
-
-      },
-
-      error: (err) => {
-
-        console.log('ERROR');
-        console.log(err);
-
-      }
-
-    });
-
-}
+    this.service
+      .create(this.departmentForm.value)
+      .subscribe({
+        next: () => {
+          this.toastr.success('Department created successfully');
+          this.router.navigate(['/departments']);
+        },
+        error: () => this.toastr.error('Failed to create department')
+      });
+  }
 }

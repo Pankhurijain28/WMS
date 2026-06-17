@@ -9,3 +9,12 @@ appsettings.Development.json
 *.suo
 
 Migrations/*.Designer.cs
+
+# Local logs & scratch (created during local runs)
+*.log
+dom-dump.html
+login-shot.png
+backend-tree.txt
+
+# Agent / IDE local config
+.claude/

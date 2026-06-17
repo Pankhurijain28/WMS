@@ -18,6 +18,8 @@
 
     <button
 
+      *ngIf="auth.canManage()"
+
       class="add-btn"
 
       (click)="addEmployee()">
@@ -77,9 +79,6 @@
   </div>
 
 
-<h2>Total Loaded: {{ employees.length }}</h2>
-
-<h2>Total Filtered: {{ filteredEmployees().length }}</h2>
   <div class="table-card">
 
 
@@ -305,6 +304,8 @@
 
             <button
 
+              *ngIf="auth.canManage()"
+
               class="edit-btn"
 
               (click)="editEmployee(employee.employeeId)">
@@ -321,6 +322,8 @@
 
             <button
 
+              *ngIf="auth.isAdmin()"
+
               class="delete-btn"
 
               (click)="deleteEmployee(employee.employeeId)">
@@ -332,6 +335,10 @@
 
 
             </button>
+
+
+
+            <span *ngIf="!auth.canManage()" style="color:var(--muted);">View only</span>
 
 
 

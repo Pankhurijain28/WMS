@@ -26,4 +26,25 @@ export class LeaveService {
       data
     );
   }
+
+  approve(id:number){
+    return this.http.put(
+      `${this.apiUrl}/${id}/approve`,
+      {}
+    );
+  }
+
+  reject(id:number){
+    return this.http.put(
+      `${this.apiUrl}/${id}/reject`,
+      {}
+    );
+  }
+
+  cancel(id:number){
+    return this.http.put(
+      `${this.apiUrl}/${id}/cancel`,
+      {}
+    );
+  }
 }

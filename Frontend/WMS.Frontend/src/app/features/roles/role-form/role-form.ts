@@ -6,31 +6,27 @@ import {
 import {
   FormBuilder,
   FormGroup,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  Validators
 } from '@angular/forms';
 
-import { ActivatedRoute }
+import { ActivatedRoute, Router }
 from '@angular/router';
 
 import { CommonModule }
 from '@angular/common';
 
+import { ToastrService }
+from 'ngx-toastr';
+
 import { RoleService }
 from '../../../core/services/role.service';
-
-import { NavbarComponent }
-from '../../../shared/layouts/navbar/navbar';
-
-import { SidebarComponent }
-from '../../../shared/layouts/sidebar/sidebar';
 
 @Component({
   selector: 'app-role-form',
   standalone: true,
   imports: [
     CommonModule,
-    NavbarComponent,
-    SidebarComponent,
     ReactiveFormsModule
   ],
   templateUrl: './role-form.html',
@@ -46,7 +42,9 @@ implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: RoleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +52,7 @@ implements OnInit {
     this.roleForm =
       this.fb.group({
 
-        roleName: [''],
+        roleName: ['', Validators.required],
         description: ['']
 
       });
@@ -82,22 +80,35 @@ implements OnInit {
 
   save() {
 
+    if (this.roleForm.invalid) {
+      this.roleForm.markAllAsTouched();
+      this.toastr.warning('Please enter a role name.');
+      return;
+    }
+
     if (this.roleId) {
 
       this.service
-        .update(
-          this.roleId,
-          this.roleForm.value
-        )
-        .subscribe();
+        .update(this.roleId, this.roleForm.value)
+        .subscribe({
+          next: () => {
+            this.toastr.success('Role updated successfully');
+            this.router.navigate(['/roles']);
+          },
+          error: () => this.toastr.error('Failed to update role')
+        });
 
       return;
     }
 
     this.service
-      .create(
-        this.roleForm.value
-      )
-      .subscribe();
+      .create(this.roleForm.value)
+      .subscribe({
+        next: () => {
+          this.toastr.success('Role created successfully');
+          this.router.navigate(['/roles']);
+        },
+        error: () => this.toastr.error('Failed to create role')
+      });
   }
 }

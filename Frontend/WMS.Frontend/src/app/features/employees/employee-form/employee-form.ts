@@ -84,7 +84,9 @@ export class EmployeeFormComponent implements OnInit {
 
       dob: [new Date().toISOString().split('T')[0], Validators.required],
 
-      doj: [new Date().toISOString().split('T')[0], Validators.required]
+      doj: [new Date().toISOString().split('T')[0], Validators.required],
+
+      status: ['Active', Validators.required]
 
     });
 

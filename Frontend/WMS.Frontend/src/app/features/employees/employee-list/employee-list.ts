@@ -18,9 +18,9 @@ import { EmployeeService }
 
 from '../../../core/services/employee.service';
 
-import { SidebarComponent } from '../../../shared/layouts/sidebar/sidebar';
+import { AuthService }
 
-import { NavbarComponent } from '../../../shared/layouts/navbar/navbar';
+from '../../../core/services/auth.service';
 
 
 
@@ -31,10 +31,6 @@ import { NavbarComponent } from '../../../shared/layouts/navbar/navbar';
   standalone: true,
 
   imports: [CommonModule,
-
-  NavbarComponent,
-
-  SidebarComponent,
 
   FormsModule],
 
@@ -65,7 +61,9 @@ roleId = 0;
 
       EmployeeService,
 
-    private router: Router
+    private router: Router,
+
+    public auth: AuthService
 
   ) { }
   searchText = '';

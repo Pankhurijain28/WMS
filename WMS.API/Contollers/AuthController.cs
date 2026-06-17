@@ -62,6 +62,17 @@ public class AuthController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize(Roles = "Admin")]
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(
+        RegisterRequestDto dto)
+    {
+        var result =
+            await _service.RegisterAsync(dto);
+
+        return Ok(result);
+    }
+
     [AllowAnonymous]
     [HttpGet("decode")]
     public IActionResult Decode()

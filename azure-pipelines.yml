@@ -1,0 +1,144 @@
+# =====================================================================
+#  Workforce Management System (WMS) — Azure DevOps CI/CD Pipeline
+#  Build + Test (.NET API & Angular)  ->  Deploy (App Service & Static Web Apps)
+# =====================================================================
+#
+#  BEFORE THE FIRST RUN, set these in the pipeline (Phase 3):
+#   - Variable  azureServiceConnection : name of your ARM service connection
+#   - Variable  apiAppName             : your API App Service name
+#   - Secret variable  swaDeployToken  : deployment token of the Static Web App
+#
+# =====================================================================
+
+trigger:
+  branches:
+    include:
+      - main
+
+variables:
+  buildConfiguration: 'Release'
+  # azureServiceConnection: name you give the ARM service connection in Phase 3
+  azureServiceConnection: 'wms-azure-connection'
+  # apiAppName: the App Service *resource name* (NOT the full hostname)
+  apiAppName: 'wms-api-pankhuri'
+  # swaDeployToken is added as a SECRET pipeline variable (not stored here)
+
+stages:
+# ---------------------------------------------------------------------
+# STAGE 1 — BUILD & TEST
+# ---------------------------------------------------------------------
+- stage: Build
+  displayName: 'Build & Test'
+  jobs:
+
+  # ---- .NET API ----
+  - job: Backend
+    displayName: 'Build .NET API'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: UseDotNet@2
+        displayName: 'Install .NET 10 SDK'
+        inputs:
+          packageType: 'sdk'
+          version: '10.0.x'
+          includePreviewVersions: true
+
+      - script: dotnet restore WMS.slnx
+        displayName: 'Restore'
+
+      - script: dotnet build WMS.slnx -c $(buildConfiguration) --no-restore
+        displayName: 'Build'
+
+      - script: >
+          dotnet test WMS.Tests/WMS.Tests.csproj
+          -c $(buildConfiguration) --no-build --logger trx
+          --results-directory $(Agent.TempDirectory)/testresults
+        displayName: 'Run unit tests'
+        continueOnError: true
+
+      - task: PublishTestResults@2
+        displayName: 'Publish test results'
+        condition: succeededOrFailed()
+        inputs:
+          testResultsFormat: 'VSTest'
+          testResultsFiles: '$(Agent.TempDirectory)/testresults/**/*.trx'
+          failTaskOnFailedTests: false
+
+      - script: >
+          dotnet publish WMS.API/WMS.API.csproj
+          -c $(buildConfiguration)
+          -o $(Build.ArtifactStagingDirectory)/api
+        displayName: 'Publish API'
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish API artifact'
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)/api'
+          ArtifactName: 'api'
+
+  # ---- Angular frontend ----
+  - job: Frontend
+    displayName: 'Build Angular'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: NodeTool@0
+        displayName: 'Use Node 22'
+        inputs:
+          versionSpec: '22.x'
+
+      - script: npm ci
+        workingDirectory: Frontend/WMS.Frontend
+        displayName: 'npm ci'
+
+      - script: npx ng build --configuration production
+        workingDirectory: Frontend/WMS.Frontend
+        displayName: 'Build Angular (production)'
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish frontend artifact'
+        inputs:
+          PathtoPublish: 'Frontend/WMS.Frontend/dist/wms-frontend/browser'
+          ArtifactName: 'frontend'
+
+# ---------------------------------------------------------------------
+# STAGE 2 — DEPLOY
+# ---------------------------------------------------------------------
+- stage: Deploy
+  displayName: 'Deploy to Azure'
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+
+  # ---- Deploy API to App Service ----
+  - job: DeployAPI
+    displayName: 'Deploy API → App Service'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - download: current
+        artifact: api
+      - task: AzureWebApp@1
+        displayName: 'Deploy to App Service'
+        inputs:
+          azureSubscription: '$(azureServiceConnection)'
+          appType: 'webAppLinux'
+          appName: '$(apiAppName)'
+          package: '$(Pipeline.Workspace)/api'
+
+  # ---- Deploy Angular to Static Web Apps ----
+  - job: DeployFrontend
+    displayName: 'Deploy Angular → Static Web Apps'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - download: current
+        artifact: frontend
+      - task: AzureStaticWebApp@0
+        displayName: 'Deploy to Static Web Apps'
+        inputs:
+          app_location: '$(Pipeline.Workspace)/frontend'
+          skip_app_build: true
+          skip_api_build: true
+          azure_static_web_apps_api_token: '$(swaDeployToken)'

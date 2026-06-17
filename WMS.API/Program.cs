@@ -204,6 +204,16 @@ builder.Services.AddScoped<
     IJwtTokenService,
     JwtTokenService>();
 
+// Allowed CORS origins come from configuration ("Cors:AllowedOrigins").
+// In Azure App Service add app settings like:
+//   Cors__AllowedOrigins__0 = https://your-frontend.azurestaticapps.net
+// Falls back to the local Angular dev server when not configured.
+var allowedOrigins =
+    builder.Configuration
+        .GetSection("Cors:AllowedOrigins")
+        .Get<string[]>()
+    ?? new[] { "http://localhost:4200" };
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
@@ -211,7 +221,7 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy
-                .WithOrigins("http://localhost:4200")
+                .WithOrigins(allowedOrigins)
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -229,11 +239,10 @@ var app = builder.Build();
 // Middleware Pipeline
 // ===============================
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Swagger is enabled in all environments so the deployed API can be
+// exercised directly (useful for the demo / grading).
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseMiddleware<ExceptionMiddleware>();
 

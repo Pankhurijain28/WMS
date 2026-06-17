@@ -34,7 +34,7 @@
         class="save-btn"
         (click)="save()">
 
-        Save Department
+        {{ departmentId ? 'Update Department' : 'Create Department' }}
 
       </button>
 

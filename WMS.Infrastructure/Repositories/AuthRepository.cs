@@ -23,4 +23,25 @@ public class AuthRepository : IAuthRepository
             .FirstOrDefaultAsync(
                 x => x.Username == username);
     }
+
+    public async Task<bool> UsernameExistsAsync(
+        string username)
+    {
+        return await _context.UserLogins
+            .AnyAsync(x => x.Username == username);
+    }
+
+    public async Task AddUserAsync(UserLogin user)
+    {
+        await _context.UserLogins.AddAsync(user);
+
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(UserLogin user)
+    {
+        _context.UserLogins.Update(user);
+
+        await _context.SaveChangesAsync();
+    }
 }

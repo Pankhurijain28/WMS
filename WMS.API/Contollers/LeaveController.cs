@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using WMS.Application.DTOs.Leave;
 using WMS.Application.Interfaces;
 
@@ -18,7 +19,9 @@ public class LeaveController : ControllerBase
         _service = service;
     }
 
-    [Authorize(Roles = "Admin,Manager")]
+    // Any authenticated user can view the leave list (employees need to
+    // see their leave status); approve/reject remain Admin/Manager only.
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -68,5 +71,41 @@ public class LeaveController : ControllerBase
         await _service.DeleteAsync(id);
 
         return NoContent();
+    }
+
+    // ===== Approval workflow =====
+
+    [Authorize(Roles = "Admin,Manager")]
+    [HttpPut("{id}/approve")]
+    public async Task<IActionResult> Approve(int id)
+    {
+        await _service.ApproveAsync(id, GetCurrentUserId());
+
+        return Ok("Leave approved");
+    }
+
+    [Authorize(Roles = "Admin,Manager")]
+    [HttpPut("{id}/reject")]
+    public async Task<IActionResult> Reject(int id)
+    {
+        await _service.RejectAsync(id, GetCurrentUserId());
+
+        return Ok("Leave rejected");
+    }
+
+    [Authorize(Roles = "Employee,Admin,Manager")]
+    [HttpPut("{id}/cancel")]
+    public async Task<IActionResult> Cancel(int id)
+    {
+        await _service.CancelAsync(id);
+
+        return Ok("Leave cancelled");
+    }
+
+    private int GetCurrentUserId()
+    {
+        var userId = User.FindFirstValue("UserId");
+
+        return int.TryParse(userId, out var id) ? id : 0;
     }
 }

@@ -2,6 +2,9 @@ import { Routes } from '@angular/router';
 
 import { authGuard } from './shared/guards/auth.guard';
 
+import { LayoutComponent }
+from './shared/layouts/layout/layout';
+
 import { LoginComponent }
 from './features/auth/login/login';
 
@@ -73,157 +76,57 @@ export const routes: Routes = [
     component: LoginComponent
   },
 
+  /* Authenticated area — wrapped in the shared layout shell
+     (sidebar + navbar are always visible) */
   {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [authGuard]
-  },
+    path: '',
+    component: LayoutComponent,
+    canActivate: [authGuard],
+    children: [
 
-  /* Employees */
+      { path: 'dashboard', component: DashboardComponent },
 
-  {
-    path: 'employees',
-    component: EmployeeListComponent,
-    canActivate: [authGuard]
-  },
+      /* Employees */
+      { path: 'employees', component: EmployeeListComponent },
+      { path: 'employee-form', component: EmployeeFormComponent },
+      { path: 'employee-form/:id', component: EmployeeFormComponent },
 
-  {
-    path: 'employee-form',
-    component: EmployeeFormComponent,
-    canActivate: [authGuard]
-  },
+      /* Departments */
+      { path: 'departments', component: DepartmentListComponent },
+      { path: 'department-form', component: DepartmentFormComponent },
+      { path: 'department-form/:id', component: DepartmentFormComponent },
 
-  {
-    path: 'employee-form/:id',
-    component: EmployeeFormComponent,
-    canActivate: [authGuard]
-  },
+      /* Roles */
+      { path: 'roles', component: RoleListComponent },
+      { path: 'role-form', component: RoleFormComponent },
+      { path: 'role-form/:id', component: RoleFormComponent },
 
-  /* Departments */
+      /* Clients */
+      { path: 'clients', component: ClientListComponent },
+      { path: 'client-form', component: ClientFormComponent },
+      { path: 'client-form/:id', component: ClientFormComponent },
 
-  {
-    path: 'departments',
-    component: DepartmentListComponent,
-    canActivate: [authGuard]
-  },
+      /* Projects */
+      { path: 'projects', component: ProjectListComponent },
+      { path: 'project-form', component: ProjectFormComponent },
+      { path: 'project-form/:id', component: ProjectFormComponent },
 
-  {
-    path: 'department-form',
-    component: DepartmentFormComponent,
-    canActivate: [authGuard]
-  },
+      /* Allocations */
+      { path: 'allocations', component: AllocationListComponent },
+      { path: 'allocation-form', component: AllocationFormComponent },
 
-  {
-    path: 'department-form/:id',
-    component: DepartmentFormComponent,
-    canActivate: [authGuard]
-  },
+      /* Attendance */
+      { path: 'attendance', component: AttendanceListComponent },
 
-  /* Roles */
+      /* Leaves */
+      { path: 'leaves', component: LeaveListComponent },
 
-  {
-    path: 'roles',
-    component: RoleListComponent,
-    canActivate: [authGuard]
-  },
+      /* Announcements */
+      { path: 'announcements', component: AnnouncementListComponent },
 
-  {
-    path: 'role-form',
-    component: RoleFormComponent,
-    canActivate: [authGuard]
-  },
-
-  {
-    path: 'role-form/:id',
-    component: RoleFormComponent,
-    canActivate: [authGuard]
-  },
-
-  /* Clients */
-
-  {
-    path: 'clients',
-    component: ClientListComponent,
-    canActivate: [authGuard]
-  },
-
-  {
-    path: 'client-form',
-    component: ClientFormComponent,
-    canActivate: [authGuard]
-  },
-
-  {
-    path: 'client-form/:id',
-    component: ClientFormComponent,
-    canActivate: [authGuard]
-  },
-
-  /* Projects */
-
-  {
-    path: 'projects',
-    component: ProjectListComponent,
-    canActivate: [authGuard]
-  },
-
-  {
-    path: 'project-form',
-    component: ProjectFormComponent,
-    canActivate: [authGuard]
-  },
-
-  {
-    path: 'project-form/:id',
-    component: ProjectFormComponent,
-    canActivate: [authGuard]
-  },
-  
-
-  /* Allocations */
-
-  {
-    path: 'allocations',
-    component: AllocationListComponent,
-    canActivate: [authGuard]
-  },
-
-  {
-    path: 'allocation-form',
-    component: AllocationFormComponent,
-    canActivate: [authGuard]
-  },
-
-  /* Attendance */
-
-  {
-    path: 'attendance',
-    component: AttendanceListComponent,
-    canActivate: [authGuard]
-  },
-
-  /* Leaves */
-
-  {
-    path: 'leaves',
-    component: LeaveListComponent,
-    canActivate: [authGuard]
-  },
-
-  /* Announcements */
-
-  {
-    path: 'announcements',
-    component: AnnouncementListComponent,
-    canActivate: [authGuard]
-  },
-
-  /* Audit Logs */
-
-  {
-    path: 'auditlogs',
-    component: AuditLogListComponent,
-    canActivate: [authGuard]
+      /* Audit Logs */
+      { path: 'auditlogs', component: AuditLogListComponent }
+    ]
   },
 
   {

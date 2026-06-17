@@ -1,6 +1,7 @@
 ﻿using WMS.Application.DTOs.Auth;
 using WMS.Application.Helpers;
 using WMS.Application.Interfaces;
+using WMS.Domain.Entities;
 using WMS.Domain.Interfaces;
 
 namespace WMS.Application.Services;
@@ -28,18 +29,15 @@ public class AuthService : IAuthService
         if (user == null)
             return null;
 
-        // HASH the entered password
         var hashedPassword =
-    PasswordHasher.Hash(dto.Password);
-
-        Console.WriteLine("INPUT HASH:");
-        Console.WriteLine(hashedPassword);
-
-        Console.WriteLine("DB HASH:");
-        Console.WriteLine(user.PasswordHash);
+            PasswordHasher.Hash(dto.Password);
 
         if (user.PasswordHash != hashedPassword)
             return null;
+
+        // Record last successful login
+        user.LastLogin = DateTime.UtcNow;
+        await _repository.UpdateAsync(user);
 
         var token =
             _jwt.GenerateToken(
@@ -50,6 +48,45 @@ public class AuthService : IAuthService
         {
             Username = user.Username,
             Role = user.Role.RoleName,
+            Token = token
+        };
+    }
+
+    public async Task<LoginResponseDto> RegisterAsync(
+        RegisterRequestDto dto)
+    {
+        var exists =
+            await _repository.UsernameExistsAsync(
+                dto.Username);
+
+        if (exists)
+            throw new Exception(
+                "Username already exists");
+
+        var user = new UserLogin
+        {
+            Username = dto.Username,
+            PasswordHash =
+                PasswordHasher.Hash(dto.Password),
+            RoleId = dto.RoleId
+        };
+
+        await _repository.AddUserAsync(user);
+
+        // Reload with Role navigation for token generation
+        var created =
+            await _repository.GetByUsernameAsync(
+                dto.Username);
+
+        var token =
+            _jwt.GenerateToken(
+                created!,
+                created.Role!.RoleName);
+
+        return new LoginResponseDto
+        {
+            Username = created.Username,
+            Role = created.Role.RoleName,
             Token = token
         };
     }
