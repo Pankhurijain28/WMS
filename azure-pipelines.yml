@@ -77,31 +77,6 @@ stages:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)/api'
           ArtifactName: 'api'
 
-  # ---- Angular frontend ----
-  - job: Frontend
-    displayName: 'Build Angular'
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-      - task: NodeTool@0
-        displayName: 'Use Node 22'
-        inputs:
-          versionSpec: '22.x'
-
-      - script: npm ci
-        workingDirectory: Frontend/WMS.Frontend
-        displayName: 'npm ci'
-
-      - script: npx ng build --configuration production
-        workingDirectory: Frontend/WMS.Frontend
-        displayName: 'Build Angular (production)'
-
-      - task: PublishBuildArtifacts@1
-        displayName: 'Publish frontend artifact'
-        inputs:
-          PathtoPublish: 'Frontend/WMS.Frontend/dist/wms-frontend/browser'
-          ArtifactName: 'frontend'
-
 # ---------------------------------------------------------------------
 # STAGE 2 — DEPLOY
 # ---------------------------------------------------------------------
@@ -127,18 +102,32 @@ stages:
           appName: '$(apiAppName)'
           package: '$(Pipeline.Workspace)/api'
 
-  # ---- Deploy Angular to Static Web Apps ----
+  # ---- Build & Deploy Angular to Static Web Apps ----
+  # Build happens in the SAME job as the deploy so the Static Web Apps task
+  # (which runs in a container mounting the repo checkout) can see the built
+  # files via a repo-relative app_location.
   - job: DeployFrontend
-    displayName: 'Deploy Angular → Static Web Apps'
+    displayName: 'Build & Deploy Angular → Static Web Apps'
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-      - download: current
-        artifact: frontend
+      - task: NodeTool@0
+        displayName: 'Use Node 22'
+        inputs:
+          versionSpec: '22.x'
+
+      - script: npm ci
+        workingDirectory: Frontend/WMS.Frontend
+        displayName: 'npm ci'
+
+      - script: npx ng build --configuration production
+        workingDirectory: Frontend/WMS.Frontend
+        displayName: 'Build Angular (production)'
+
       - task: AzureStaticWebApp@0
         displayName: 'Deploy to Static Web Apps'
         inputs:
-          app_location: '$(Pipeline.Workspace)/frontend'
+          app_location: 'Frontend/WMS.Frontend/dist/wms-frontend/browser'
           skip_app_build: true
           skip_api_build: true
           azure_static_web_apps_api_token: '$(swaDeployToken)'
