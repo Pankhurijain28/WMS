@@ -1,0 +1,29 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+
+<div class="page-layout">
+  <div class="content-area">
+    
+    <div class="header-row">
+    <div>
+      <h1>Company Announcements</h1>
+      <p>Internal communication center</p>
+    </div>
+    
+    <button class="add-btn" routerLink="/announcements/create">
+      + New Announcement
+    </button>
+  </div>
+
+    <div *ngIf="announcements.length === 0" style="color: var(--muted); padding: 20px;">
+      No announcements at this time.
+    </div>
+
+    <div class="content-card" *ngFor="let item of announcements" style="margin-bottom: 20px;">
+      <h3 style="margin-top: 0; margin-bottom: 5px; color: var(--text);">{{ item.title }}</h3>
+      <small style="color: var(--muted);">{{ item.publishedDate | date }} • By {{ item.author || 'Admin' }}</small>
+      <p style="margin-top: 15px; color: var(--text);">{{ item.content }}</p>
+    </div>
+
+  </div>
+</div>

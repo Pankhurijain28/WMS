@@ -1,0 +1,358 @@
+<div class="employee-page">
+
+
+
+  <div class="page-header">
+
+
+
+    <div>
+
+      <h1>Employees</h1>
+
+      <p>Manage workforce records</p>
+
+    </div>
+
+
+
+    <button
+
+      class="add-btn"
+
+      (click)="addEmployee()">
+
+
+
+      + Add Employee
+
+
+
+    </button>
+
+
+
+  </div>
+
+
+
+  <div class="stats-grid">
+
+
+
+    <div class="stat-card">
+
+      <h3>{{ employees.length }}</h3>
+
+      <span>Total Employees</span>
+
+    </div>
+
+
+
+    <div class="stat-card">
+
+      <h3>
+
+        {{
+
+        employees.filter(
+
+        x => x.status === 'Active'
+
+        ).length
+
+        }}
+
+      </h3>
+
+
+
+      <span>Active Employees</span>
+
+    </div>
+
+
+
+  </div>
+
+
+<h2>Total Loaded: {{ employees.length }}</h2>
+
+<h2>Total Filtered: {{ filteredEmployees().length }}</h2>
+  <div class="table-card">
+
+
+
+    <div class="table-toolbar">
+
+  <input
+    type="text"
+    placeholder="Search Name"
+    [(ngModel)]="searchName">
+
+  <button
+    class="search-btn"
+    (click)="searchEmployee()">
+
+    Search Name
+
+  </button>
+
+  <input
+    type="number"
+    placeholder="Department Id"
+    [(ngModel)]="departmentId">
+
+  <button
+    class="search-btn"
+    (click)="searchDepartment()">
+
+    Search Department
+
+  </button>
+
+  <input
+    type="number"
+    placeholder="Role Id"
+    [(ngModel)]="roleId">
+
+  <button
+    class="search-btn"
+    (click)="searchRole()">
+
+    Search Role
+
+  </button>
+
+  <button
+    class="reset-btn"
+    (click)="loadEmployees()">
+
+    Reset
+
+  </button>
+
+</div>
+
+
+
+    <table>
+
+
+
+      <thead>
+
+
+
+        <tr>
+
+          <th>Employee</th>
+
+          <th>Email</th>
+
+          <th>Phone</th>
+
+          <th>Department</th>
+
+          <th>Role</th>
+
+          <th>Status</th>
+
+          <th>Actions</th>
+
+        </tr>
+
+
+
+      </thead>
+
+
+
+      <tbody>
+
+
+
+        <tr
+
+          *ngFor="let employee of employees">
+
+
+
+          <td>
+
+
+
+            <div class="employee-info">
+
+
+
+              <div class="avatar">
+
+
+
+                {{
+
+                employee.firstName.charAt(0)
+
+                }}{{
+
+                employee.lastName.charAt(0)
+
+                }}
+
+
+
+              </div>
+
+
+
+              <div>
+
+
+
+                <div class="name">
+
+                  {{ employee.firstName }}
+
+                  {{ employee.lastName }}
+
+                </div>
+
+
+
+                <div class="id">
+
+                  ID #{{ employee.employeeId }}
+
+                </div>
+
+
+
+              </div>
+
+
+
+            </div>
+
+
+
+          </td>
+
+
+
+          <td>
+
+            {{ employee.email }}
+
+          </td>
+
+
+
+          <td>
+
+            {{ employee.phoneNumber }}
+
+          </td>
+
+
+
+          <td>
+
+            {{ employee.departmentName }}
+
+          </td>
+
+
+
+          <td>
+
+            {{ employee.roleName }}
+
+          </td>
+
+
+
+          <td>
+
+
+
+            <span
+
+              class="status"
+
+              [class.active]="employee.status === 'Active'"
+
+              [class.inactive]="employee.status !== 'Active'">
+
+
+
+              {{ employee.status }}
+
+
+
+            </span>
+
+
+
+          </td>
+
+
+
+          <td>
+
+
+
+            <button
+
+              class="edit-btn"
+
+              (click)="editEmployee(employee.employeeId)">
+
+
+
+              Edit
+
+
+
+            </button>
+
+
+
+            <button
+
+              class="delete-btn"
+
+              (click)="deleteEmployee(employee.employeeId)">
+
+
+
+              Delete
+
+
+
+            </button>
+
+
+
+          </td>
+
+
+
+        </tr>
+
+
+
+      </tbody>
+
+
+
+    </table>
+
+
+
+  </div>
+
+
+
+</div>

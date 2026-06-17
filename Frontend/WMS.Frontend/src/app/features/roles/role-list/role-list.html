@@ -1,0 +1,86 @@
+<div class="page-container">
+
+  <div class="table-header">
+
+    <div>
+
+      <h1>Roles</h1>
+
+      <p>
+        Manage employee roles and permissions
+      </p>
+
+    </div>
+
+    <button
+      class="add-btn"
+      (click)="addRole()">
+
+      + Add Role
+
+    </button>
+
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>ID</th>
+          <th>Role Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let role of roles">
+
+          <td>
+            {{ role.roleId }}
+          </td>
+
+          <td>
+            {{ role.roleName }}
+          </td>
+
+          <td>
+            {{ role.description }}
+          </td>
+
+          <td>
+
+            <button
+              class="edit-btn"
+              (click)="editRole(role.roleId)">
+
+              Edit
+
+            </button>
+
+            <button
+              class="delete-btn"
+              (click)="deleteRole(role.roleId)">
+
+              Delete
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

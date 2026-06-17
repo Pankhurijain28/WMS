@@ -1,0 +1,74 @@
+.page-wrapper{
+  padding:30px;
+}
+
+.page-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.page-header h1{
+  margin:0;
+  font-size:32px;
+}
+
+.page-header p{
+  color:#94a3b8;
+}
+
+.action-btn{
+  background:#22c55e;
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.table-card{
+  background:#1e293b;
+  border-radius:18px;
+  padding:20px;
+}
+
+.enterprise-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.enterprise-table th{
+  text-align:left;
+  padding:15px;
+  color:#cbd5e1;
+}
+
+.enterprise-table td{
+  padding:15px;
+  border-top:1px solid #334155;
+}
+
+.badge-active{
+  background:#14532d;
+  color:#4ade80;
+  padding:6px 12px;
+  border-radius:999px;
+}
+
+.edit-btn{
+  background:#2563eb;
+  border:none;
+  color:white;
+  padding:8px 14px;
+  border-radius:8px;
+  margin-right:8px;
+}
+
+.delete-btn{
+  background:#dc2626;
+  border:none;
+  color:white;
+  padding:8px 14px;
+  border-radius:8px;
+}

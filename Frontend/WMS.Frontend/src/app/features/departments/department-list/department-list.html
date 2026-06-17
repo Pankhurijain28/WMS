@@ -1,0 +1,72 @@
+<div class="page-container">
+
+  <div class="table-header">
+
+    <div>
+      <h1>Departments</h1>
+      <p>Manage organizational departments</p>
+    </div>
+
+    <button
+      class="add-btn"
+      (click)="addDepartment()">
+
+      + Add Department
+
+    </button>
+
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let item of departments">
+
+          <td>{{item.departmentId}}</td>
+
+          <td>{{item.departmentName}}</td>
+
+          <td>{{item.description}}</td>
+
+          <td>
+
+            <button
+              class="edit-btn"
+              (click)="editDepartment(item.departmentId)">
+              Edit
+            </button>
+
+            <button
+              class="delete-btn"
+              (click)="deleteDepartment(item.departmentId)">
+              Delete
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+    <h2>Department Count: {{ departments.length }}</h2>
+
+<pre>{{ departments | json }}</pre>
+
+  </div>
+
+</div>

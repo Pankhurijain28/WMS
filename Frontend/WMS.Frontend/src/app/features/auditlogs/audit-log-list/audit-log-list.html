@@ -1,0 +1,185 @@
+<div class="audit-page">
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>Audit Logs</h1>
+
+      <p>
+        System activity monitoring
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="stats-grid">
+
+    <div class="stat-card">
+
+      <h2>
+        {{logs.length}}
+      </h2>
+
+      <span>
+        Total Events
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <h2>
+        {{
+        logs.filter(
+        x => x.action === 'CREATE'
+        ).length
+        }}
+      </h2>
+
+      <span>
+        Create Events
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <h2>
+        {{
+        logs.filter(
+        x => x.action === 'UPDATE'
+        ).length
+        }}
+      </h2>
+
+      <span>
+        Update Events
+      </span>
+
+    </div>
+
+    <div class="stat-card">
+
+      <h2>
+        {{
+        logs.filter(
+        x => x.action === 'DELETE'
+        ).length
+        }}
+      </h2>
+
+      <span>
+        Delete Events
+      </span>
+
+    </div>
+
+  </div>
+
+  <div class="search-box">
+
+    <input
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Search logs">
+
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>User</th>
+          <th>Action</th>
+          <th>Entity</th>
+          <th>Record ID</th>
+          <th>Date</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr
+          *ngFor="
+          let item of
+          filteredLogs()
+          ">
+
+          <td>
+
+            <div class="user-info">
+
+              <div class="avatar">
+
+                {{
+                item.createdBy
+                ?.charAt(0)
+                }}
+
+              </div>
+
+              {{item.createdBy}}
+
+            </div>
+
+          </td>
+
+          <td>
+
+            <span
+              class="action-badge"
+              [ngClass]="{
+                'create':
+                item.action==='CREATE',
+
+                'update':
+                item.action==='UPDATE',
+
+                'delete':
+                item.action==='DELETE'
+              }">
+
+              {{item.action}}
+
+            </span>
+
+          </td>
+
+          <td>
+
+            {{item.entityName}}
+
+          </td>
+
+          <td>
+
+            #{{item.recordId}}
+
+          </td>
+
+          <td>
+
+            {{
+            item.createdOn
+            | date:'medium'
+            }}
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

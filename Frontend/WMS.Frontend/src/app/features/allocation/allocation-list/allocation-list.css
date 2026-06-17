@@ -1,0 +1,90 @@
+.page-container {
+  padding: 30px;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.header-row h2 {
+  color: white;
+  margin: 0;
+}
+
+.header-row p {
+  color: #94a3b8;
+}
+
+.add-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.table-card {
+  background: #172554;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #1e3a8a;
+}
+
+thead th {
+  padding: 18px;
+  color: white;
+  text-align: left;
+}
+
+tbody tr {
+  border-bottom: 1px solid #334155;
+}
+
+tbody td {
+  padding: 18px;
+  color: #e2e8f0;
+}
+
+tbody tr:hover {
+  background: rgba(255,255,255,.03);
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 30px;
+  font-size: 12px;
+}
+
+.active {
+  background: rgba(34,197,94,.2);
+  color: #22c55e;
+}
+
+.edit-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+}

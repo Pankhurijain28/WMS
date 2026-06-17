@@ -1,0 +1,86 @@
+<div class="page-wrapper">
+
+  <div class="page-header">
+
+    <div>
+      <h1>Projects</h1>
+      <p>Manage client projects</p>
+    </div>
+
+    <button
+  (click)="addProject()"
+  class="action-btn">
+
+  + Add Project
+
+</button>
+
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>ID</th>
+          <th>Project Name</th>
+          <th>Client</th>
+          <th>Start Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+        
+
+
+
+        <tr *ngFor="let project of projects">
+
+          <td>{{project.projectId}}</td>
+
+          <td>{{project.projectName}}</td>
+
+          <td>{{project.clientName}}</td>
+
+          <td>{{project.startDate}}</td>
+
+          <td>{{project.status}}</td>
+
+          <td>
+           
+
+            <button
+              (click)="editProject(project.projectId)">
+
+              Edit
+
+            </button>
+
+            <button
+              (click)="deleteProject(project.projectId)">
+
+              Delete
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+    <h2>Project Count: {{projects.length}}</h2>
+
+<!-- <pre>{{projects | json}}</pre> -->
+
+  </div>
+
+</div>

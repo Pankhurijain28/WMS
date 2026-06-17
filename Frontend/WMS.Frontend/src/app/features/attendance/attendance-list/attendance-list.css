@@ -1,0 +1,97 @@
+.attendance-page{
+  padding:30px;
+}
+
+.page-header h1{
+  color:white;
+}
+
+.stats-grid{
+  margin:25px 0;
+}
+
+.stat-card{
+  background:#172554;
+  border-radius:18px;
+  padding:25px;
+}
+
+.stat-card h2{
+  color:white;
+}
+
+.stat-card span{
+  color:#94a3b8;
+}
+
+.toolbar{
+  margin-bottom:20px;
+}
+
+.toolbar input{
+  width:350px;
+  height:45px;
+  border:none;
+  border-radius:10px;
+  padding:0 15px;
+  background:#172554;
+  color:white;
+}
+
+.table-card{
+  background:#172554;
+  border-radius:18px;
+  overflow:hidden;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+thead{
+  background:#1e3a8a;
+}
+
+thead th{
+  color:white;
+  padding:18px;
+}
+
+tbody td{
+  padding:18px;
+  color:#e2e8f0;
+}
+
+tbody tr{
+  border-bottom:1px solid #334155;
+}
+
+.employee{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#2563eb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+}
+
+.hours{
+  color:#22c55e;
+  font-weight:600;
+}
+
+.mode{
+  background:#334155;
+  color:white;
+  padding:6px 12px;
+  border-radius:20px;
+}

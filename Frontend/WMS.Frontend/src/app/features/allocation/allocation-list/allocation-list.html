@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+
+<div class="page-layout">
+  <div class="content-area">
+    
+    <div class="page-header">
+      <div>
+        <h1>Project Allocations</h1>
+        <p>Manage employee project assignments</p>
+      </div>
+      <button class="primary-btn" routerLink="/allocations/add">Allocate Employee</button>
+    </div>
+
+    <div class="content-card">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Employee ID</th>
+            <th>Project ID</th>
+            <th>Role</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of allocations">
+            <td>{{item.id}}</td>
+            <td>{{item.employeeId}}</td>
+            <td>{{item.projectId}}</td>
+            <td>{{item.role}}</td>
+            <td>{{item.startDate | date}}</td>
+            <td>{{item.endDate | date}}</td>
+            <td>
+              <button class="primary-btn" [routerLink]="['/allocations/edit', item.id]" style="margin-right: 10px; padding: 6px 12px;">Edit</button>
+              <button class="primary-btn" (click)="delete(item.id)" style="background: var(--danger); padding: 6px 12px;">Delete</button>
+            </td>
+          </tr>
+          <tr *ngIf="allocations.length === 0">
+            <td colspan="7" style="text-align: center; color: var(--muted);">No allocations found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

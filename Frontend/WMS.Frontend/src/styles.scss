@@ -1,0 +1,189 @@
+// Include theming for Angular Material
+@use '@angular/material' as mat;
+
+:root {
+  // Your Custom Dark Theme Variables
+  --bg: #0f172a;
+  --card: #1e293b;
+  --card-hover: #273449;
+
+  --primary: #2563eb;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --border: #334155;
+}
+
+html {
+  height: 100%;
+  // Angular Material Theme Setup
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  
+  // Tell the browser and Material to use dark mode
+  color-scheme: dark; 
+  
+  // Using your custom dark theme variables
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, Segoe UI, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* --- Layout & Utility Classes --- */
+
+.page-layout {
+  display: flex;
+}
+
+.content-area {
+  margin-left: 260px;
+  padding: 30px;
+  width: 100%;
+}
+
+.content-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.page-header h1 {
+  margin: 0;
+}
+
+.page-header p {
+  color: var(--muted);
+}
+
+.primary-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+}
+
+/* --- Tables --- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #111827;
+}
+
+th {
+  color: var(--muted);
+}
+
+th,
+td {
+  padding: 16px;
+  text-align: left;
+}
+
+tbody tr {
+  border-top: 1px solid var(--border);
+}
+
+tbody tr:hover {
+  background: #243447;
+}
+
+/* --- Forms --- */
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: white;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* --- Responsive Design --- */
+
+@media (max-width: 992px) {
+  .sidebar {
+    display: none;
+  }
+
+  .navbar {
+    margin-left: 0;
+  }
+
+  .content-area {
+    margin-left: 0;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Update this inside styles.scss */
+.page-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.content-area {
+  margin-top: 70px; /* Creates space for the fixed Navbar */
+  margin-left: 260px; /* Creates space for the fixed Sidebar */
+  padding: 30px;
+  width: calc(100% - 260px); /* Prevents horizontal scrolling */
+  box-sizing: border-box;
+}

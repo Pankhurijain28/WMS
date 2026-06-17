@@ -1,0 +1,47 @@
+<div class="page-container">
+
+  <div class="form-card">
+
+    <h2>
+      {{ roleId ? 'Edit Role' : 'Create Role' }}
+    </h2>
+
+    <form [formGroup]="roleForm">
+
+      <div class="form-group">
+
+        <label>Role Name</label>
+
+        <input
+          type="text"
+          formControlName="roleName"
+          placeholder="Enter role name">
+
+      </div>
+
+      <div class="form-group">
+
+        <label>Description</label>
+
+        <textarea
+          rows="4"
+          formControlName="description"
+          placeholder="Role description">
+        </textarea>
+
+      </div>
+
+      <button
+        type="button"
+        class="save-btn"
+        (click)="save()">
+
+        {{ roleId ? 'Update Role' : 'Create Role' }}
+
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

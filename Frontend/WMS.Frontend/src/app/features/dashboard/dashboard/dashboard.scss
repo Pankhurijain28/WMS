@@ -1,0 +1,113 @@
+.dashboard-container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  color: var(--muted);
+  
+  p { margin-top: 16px; }
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: none;
+  
+  mat-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+  }
+  
+  .stat-info {
+    h4 {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 14px;
+    }
+    h2 {
+      margin: 8px 0 0 0;
+      font-size: 28px;
+      color: var(--text);
+    }
+  }
+
+  .stat-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    
+    &.primary-icon { color: var(--primary); }
+    &.success-icon { color: var(--success); }
+    &.warning-icon { color: var(--warning); }
+  }
+}
+
+/* Bottom Grid: Charts and Activity */
+.dashboard-bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-card, .activity-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: none;
+  height: 100%;
+  
+  mat-card-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+    
+    mat-card-title {
+      font-size: 18px;
+      color: var(--text);
+      margin: 0;
+    }
+  }
+}
+
+.chart-container {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 24px 24px 24px;
+}
+
+.activity-message {
+  color: var(--text);
+}
+
+.activity-icon {
+  color: var(--muted);
+}
+
+.activity-time {
+  color: var(--primary);
+  font-size: 12px;
+}

@@ -1,0 +1,45 @@
+<h1 style="color:red">
+Array Count = {{ leaves.length }}
+</h1>
+<div class="page-container">
+
+  <div class="table-header">
+
+    <div>
+      <h1>Leave Requests</h1>
+      <p>Employee leave management</p>
+    </div>
+
+  </div>
+
+  <div class="table-card">
+
+    <h2>Total Leaves: {{ leaves.length }}</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Employee</th>
+      <th>Leave Type</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let leave of leaves">
+      <td>{{ leave.leaveId }}</td>
+      <td>{{ leave.employeeName }}</td>
+      <td>{{ leave.leaveType }}</td>
+      <td>{{ leave.fromDate }}</td>
+      <td>{{ leave.toDate }}</td>
+      <td>{{ leave.status }}</td>
+    </tr>
+  </tbody>
+</table>
+
+  </div>
+
+</div>

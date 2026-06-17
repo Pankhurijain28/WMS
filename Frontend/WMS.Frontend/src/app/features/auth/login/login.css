@@ -1,0 +1,206 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.login-page {
+  display: flex;
+  min-height: 100vh;
+  background: #020617; /* Deep, sleek dark background */
+}
+
+/* --- Left Side: Branding --- */
+.branding-section {
+  flex: 1.2; /* Takes up slightly more space for a modern look */
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-content {
+  max-width: 550px;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+.logo-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px; /* Squircle looks more modern than perfect circle */
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.brand-content h1 {
+  font-size: 48px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.brand-content p {
+  font-size: 18px;
+  color: #e2e8f0;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.feature-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2x2 grid looks better */
+  gap: 15px;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* --- Right Side: Login Form --- */
+.login-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #020617;
+  padding: 40px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  background: #0f172a; /* Solid dark card instead of blurry */
+  border: 1px solid #1e293b;
+  border-radius: 24px;
+  padding: 50px 40px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.card-header {
+  margin-bottom: 35px;
+}
+
+.card-header h2 {
+  color: white;
+  font-size: 28px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.card-header p {
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+/* --- Form Inputs --- */
+.input-group {
+  margin-bottom: 24px;
+}
+
+.input-group label {
+  display: block;
+  color: #cbd5e1;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.input-group input {
+  width: 100%;
+  height: 50px;
+  background: #020617; /* Darker inside the input */
+  border: 1px solid #334155;
+  color: white;
+  border-radius: 10px;
+  padding: 0 16px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: #0f172a;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 13px;
+  margin-top: 6px;
+  display: block;
+}
+
+/* --- Button --- */
+.login-btn {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+}
+
+.login-btn:hover:not(:disabled) {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px -10px rgba(37, 99, 235, 0.5);
+}
+
+.login-btn:disabled {
+  background: #475569;
+  cursor: not-allowed;
+  color: #94a3b8;
+}
+
+.footer-text {
+  text-align: center;
+  color: #64748b;
+  margin-top: 30px;
+  font-size: 13px;
+}
+
+/* --- Mobile Responsiveness --- */
+@media(max-width: 900px) {
+  .login-page {
+    flex-direction: column;
+  }
+  .branding-section {
+    display: none;
+  }
+  .login-card {
+    padding: 40px 25px;
+  }
+}

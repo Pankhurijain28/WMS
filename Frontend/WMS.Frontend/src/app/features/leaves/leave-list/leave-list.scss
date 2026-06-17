@@ -1,0 +1,108 @@
+.page-container{
+  padding:30px;
+}
+
+.table-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.table-header h1{
+  color:white;
+  margin:0;
+}
+
+.table-header p{
+  color:#94a3b8;
+}
+
+.table-card{
+  background:#16213e;
+  border-radius:16px;
+  overflow:hidden;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th{
+  background:#1e293b;
+  color:white;
+  padding:16px;
+  text-align:left;
+}
+
+td{
+  padding:16px;
+  border-top:1px solid #24344f;
+  color:#e2e8f0;
+}
+
+tr:hover{
+  background:#1b2a46;
+}
+
+.add-btn,
+.save-btn{
+  background:#2563eb;
+  color:white;
+  border:none;
+  padding:12px 18px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.edit-btn{
+  background:#3b82f6;
+  border:none;
+  color:white;
+  padding:8px 12px;
+  border-radius:8px;
+}
+
+.delete-btn{
+  background:#ef4444;
+  border:none;
+  color:white;
+  padding:8px 12px;
+  border-radius:8px;
+  margin-left:8px;
+}
+
+.form-card{
+  max-width:700px;
+  background:#16213e;
+  padding:30px;
+  border-radius:16px;
+}
+
+.form-group{
+  margin-bottom:20px;
+}
+
+.form-group label{
+  display:block;
+  color:white;
+  margin-bottom:8px;
+}
+
+.form-group input,
+.form-group textarea{
+  width:100%;
+  padding:12px;
+  background:#0f172a;
+  border:1px solid #334155;
+  color:white;
+  border-radius:10px;
+}
+
+.status-badge{
+  background:#14532d;
+  color:#4ade80;
+  padding:6px 12px;
+  border-radius:20px;
+}

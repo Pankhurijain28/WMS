@@ -1,0 +1,78 @@
+/* Add this at the very top of navbar.scss */
+:host {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 260px; /* Pushes it past the sidebar */
+  width: calc(100% - 260px);
+  height: 70px;
+  z-index: 99;
+  background: #0f172a; /* Matches your dark theme background */
+  border-bottom: 1px solid #334155;
+}
+.navbar{
+    height:72px;
+    background:#111827;
+    border-bottom:1px solid #1e293b;
+    margin-left:260px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 30px;
+
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.navbar h2{
+    color:white;
+    font-size:22px;
+    margin:0;
+}
+
+.navbar-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.user-info{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#2563eb;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+    font-weight:700;
+}
+
+.username{
+    color:white;
+    font-size:14px;
+}
+
+.role{
+    color:#94a3b8;
+    font-size:12px;
+}
+
+.logout-btn{
+    background:#dc2626;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:10px;
+}

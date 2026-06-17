@@ -1,0 +1,118 @@
+.page-layout{
+    display:flex;
+    min-height:100vh;
+    background:#0f172a;
+}
+
+.content-area{
+    flex:1;
+    padding:30px;
+    color:white;
+}
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.page-header h1{
+    font-size:30px;
+    margin:0;
+}
+
+.page-header p{
+    color:#94a3b8;
+}
+
+.primary-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    font-weight:600;
+}
+
+.primary-btn:hover{
+    background:#1d4ed8;
+}
+
+.table-card{
+    background:#1e293b;
+    border:1px solid #334155;
+    border-radius:18px;
+    overflow:hidden;
+}
+
+.table-header{
+    padding:20px;
+    border-bottom:1px solid #334155;
+}
+
+.search-box{
+    width:350px;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    background:#0f172a;
+    color:white;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#111827;
+}
+
+th{
+    text-align:left;
+    padding:18px;
+    color:#94a3b8;
+}
+
+td{
+    padding:18px;
+    border-top:1px solid #334155;
+}
+
+tr:hover{
+    background:#273449;
+}
+
+.client-name{
+    font-weight:600;
+}
+
+.status-badge{
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.active{
+    background:#14532d;
+    color:#86efac;
+}
+
+.edit-btn{
+    border:none;
+    background:#1e40af;
+    color:white;
+    padding:8px 14px;
+    border-radius:8px;
+    margin-right:10px;
+}
+
+.delete-btn{
+    border:none;
+    background:#991b1b;
+    color:white;
+    padding:8px 14px;
+    border-radius:8px;
+}

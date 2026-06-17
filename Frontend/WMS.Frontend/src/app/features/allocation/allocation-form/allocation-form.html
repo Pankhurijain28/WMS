@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+<app-sidebar></app-sidebar>
+
+<div class="page-layout">
+  <div class="content-area">
+    
+    <div class="page-header">
+      <div>
+        <h1>{{ allocationId ? 'Edit Allocation' : 'New Allocation' }}</h1>
+        <p>Assign an employee to a project</p>
+      </div>
+      <button class="primary-btn" routerLink="/allocations" style="background: var(--border);">Back</button>
+    </div>
+
+    <form [formGroup]="allocationForm" (ngSubmit)="save()" class="content-card">
+      <div class="form-grid">
+        
+        <div>
+          <label>Employee ID</label>
+          <input type="number" formControlName="employeeId" placeholder="Enter Employee ID">
+        </div>
+
+        <div>
+          <label>Project ID</label>
+          <input type="number" formControlName="projectId" placeholder="Enter Project ID">
+        </div>
+
+        <div>
+          <label>Project Role</label>
+          <input type="text" formControlName="role" placeholder="e.g. Developer">
+        </div>
+
+        <div>
+          <label>Start Date</label>
+          <input type="date" formControlName="startDate">
+        </div>
+
+        <div>
+          <label>End Date</label>
+          <input type="date" formControlName="endDate">
+        </div>
+
+      </div>
+
+      <div style="margin-top: 20px; text-align: right;">
+        <button class="primary-btn" type="submit">
+          {{ allocationId ? 'Update' : 'Save' }} Allocation
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>

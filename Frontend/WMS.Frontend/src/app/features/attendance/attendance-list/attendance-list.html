@@ -1,0 +1,114 @@
+<div class="attendance-page">
+
+  <div class="page-header">
+
+    <h1>
+      Attendance Management
+    </h1>
+
+  </div>
+
+  <div class="stats-grid">
+
+    <div class="stat-card">
+
+      <h2>
+        {{attendance.length}}
+      </h2>
+
+      <span>
+        Attendance Records
+      </span>
+
+    </div>
+
+  </div>
+
+  <div class="toolbar">
+
+    <input
+      type="text"
+      placeholder="Search employee..."
+      [(ngModel)]="searchText">
+
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Employee</th>
+          <th>Date</th>
+          <th>Check In</th>
+          <th>Check Out</th>
+          <th>Hours</th>
+          <th>Work Mode</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let item of attendance">
+
+          <td>
+
+            <div class="employee">
+
+              <div class="avatar">
+
+                {{
+                item.employeeName
+                ?.charAt(0)
+                }}
+
+              </div>
+
+              {{item.employeeName}}
+
+            </div>
+
+          </td>
+
+          <td>
+            {{item.attendanceDate}}
+          </td>
+
+          <td>{{item.checkIn}}</td>
+<td>{{item.checkOut}}</td>
+
+          <td>
+
+            <span class="hours">
+
+              {{item.totalHours}}
+
+            </span>
+
+          </td>
+
+          <td>
+
+            <span
+              class="mode">
+
+              {{item.workMode}}
+
+            </span>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

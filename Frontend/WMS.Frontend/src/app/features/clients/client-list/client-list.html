@@ -1,0 +1,122 @@
+<app-navbar></app-navbar>
+
+<div class="page-layout">
+
+    <app-sidebar></app-sidebar>
+
+    <div class="content-area">
+
+        <div class="page-header">
+
+            <div>
+                <h1>Clients</h1>
+                <p>Manage customer organizations and business partners</p>
+            </div>
+
+            <button
+                class="primary-btn"
+                (click)="addClient()">
+
+                + New Client
+
+            </button>
+
+        </div>
+
+        <div class="table-card">
+
+            <div class="table-header">
+
+                <input
+                    type="text"
+                    placeholder="Search clients..."
+                    class="search-box">
+
+            </div>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Client Name</th>
+                        <th>Location</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr *ngFor="let client of clients">
+
+                        <td>#{{client.clientId}}</td>
+
+                        <td>
+
+                            <div class="client-name">
+
+                                {{client.clientName}}
+
+                            </div>
+
+                        </td>
+
+                        <td>
+                            {{client.clientLocation}}
+                        </td>
+
+                        <td>
+                            {{client.clientPhoneNumber}}
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="status-badge"
+                                [class.active]="client.status">
+
+                                {{
+                                  client.status
+                                  ? 'Active'
+                                  : 'Inactive'
+                                }}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="edit-btn"
+                                (click)="editClient(client.clientId)">
+
+                                Edit
+
+                            </button>
+
+                            <button
+                                class="delete-btn"
+                                (click)="deleteClient(client.clientId)">
+
+                                Delete
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
